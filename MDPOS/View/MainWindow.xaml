@@ -1,0 +1,78 @@
+﻿<Window x:Class="MDPOS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ctrl="clr-namespace:MDPOS.Controls"
+        xmlns:local="clr-namespace:MDPOS"
+        mc:Ignorable="d"
+        Title="MDPOS" 
+        Height="800" Width="1400"
+        MinHeight="800" MinWidth="1400">
+    <Window.Resources>
+        <Style x:Key="lvCategoryListItemValues" TargetType="ListBoxItem">
+            <Setter Property="FontSize" Value="22"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.07*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.02*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ListView x:Name="lvFunction" Grid.Column="1" BorderThickness="0" SelectionChanged="lvFunction_SelectionChanged">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListViewItem Style="{StaticResource lvCategoryListItemValues}">좌석</ListViewItem>
+                <ListViewItem Style="{StaticResource lvCategoryListItemValues}">통계</ListViewItem>
+            </ListView>
+            <TextBlock x:Name="tbTime" Grid.Column="2" 
+                       HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="30"/>
+        </Grid>
+        
+        <ListView x:Name="lvTable" Grid.Row="1"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  SelectionChanged="lvTable_SelectionChanged">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Black">
+                        <Grid Width="250" Height="250">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Number}" FontSize="62" Foreground="Black"/>
+                            <TextBlock x:Name="tbOrder" Text="{Binding Orders}" Grid.Row="1" TextTrimming="none" TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        
+        <ctrl:FoodControl x:Name="ctrlFood" 
+                          Grid.Row="0" Grid.RowSpan="2" 
+                          Visibility="Collapsed"/>
+        <ctrl:StatContainer x:Name="ctrlStatContainer" 
+                            Grid.Row="1" Grid.RowSpan="1"
+                            Visibility="Collapsed"/>
+        <!--<ctrl:ProgressBarControl Grid.Row="0" Grid.RowSpan="2"/>-->
+    </Grid>
+</Window>

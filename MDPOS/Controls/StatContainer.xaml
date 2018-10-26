@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="MDPOS.Controls.StatContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MDPOS.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <UserControl.Resources>
+        <Style x:Key="lvCategoryListItemValues" TargetType="ListBoxItem">
+            <Setter Property="FontSize" Value="22"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.06*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <ListView x:Name="lvCondition" Width="300" HorizontalAlignment="Left" BorderThickness="0" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListViewItem Style="{StaticResource lvCategoryListItemValues}">메뉴별</ListViewItem>
+            <ListViewItem Style="{StaticResource lvCategoryListItemValues}">카테고리별</ListViewItem>
+        </ListView>
+
+        <local:StatMenuControl x:Name="ctrlStatMenu" Grid.Row="1" Visibility="Collapsed"/>
+        <local:StatCategoryControl x:Name="ctrlStatCategory" Grid.Row="1" Visibility="Collapsed"/>
+
+    </Grid>
+</UserControl>

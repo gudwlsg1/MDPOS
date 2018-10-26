@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EFBCB63C-9106-4DFF-B469-A01A5E334B3E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MDPOS</RootNamespace>
+    <AssemblyName>MDPOS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\FoodControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProgressBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatCategoryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\FoodControl.xaml.cs">
+      <DependentUpon>FoodControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProgressBarControl.xaml.cs">
+      <DependentUpon>ProgressBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatCategoryControl.xaml.cs">
+      <DependentUpon>StatCategoryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatMenuControl.xaml.cs">
+      <DependentUpon>StatMenuControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatContainer.xaml.cs">
+      <DependentUpon>StatContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Food.cs" />
+    <Compile Include="Model\Stat.cs" />
+    <Compile Include="Model\TableInfo.cs" />
+    <Compile Include="ViewModel\FoodViewModel.cs" />
+    <Compile Include="ViewModel\StatViewModel.cs" />
+    <Compile Include="ViewModel\TableViewModel.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\가츠돈.jpg" />
+    <Resource Include="Resources\갈비만두.jpg" />
+    <Resource Include="Resources\김치볶음밥.jpg" />
+    <Resource Include="Resources\김치찌개.jpg" />
+    <Resource Include="Resources\냉면.jpg" />
+    <Resource Include="Resources\냉모밀.jpg" />
+    <Resource Include="Resources\돈까스 김치볶음밥.jpg" />
+    <Resource Include="Resources\돈까스김밥.jpg" />
+    <Resource Include="Resources\된장찌개.jpg" />
+    <Resource Include="Resources\떡갈비김밥.jpg" />
+    <Resource Include="Resources\뚝배기불고기.jpg" />
+    <Resource Include="Resources\라볶이.jpg" />
+    <Resource Include="Resources\부대찌개.jpg" />
+    <Resource Include="Resources\새우튀김김밥.jpg" />
+    <Resource Include="Resources\소불고기김밥.jpg" />
+    <Resource Include="Resources\쇠고기야채죽.jpg" />
+    <Resource Include="Resources\순두부찌개.jpg" />
+    <Resource Include="Resources\오므라이스.jpg" />
+    <Resource Include="Resources\왕만두.jpg" />
+    <Resource Include="Resources\유부우동.jpg" />
+    <Resource Include="Resources\육개장.jpg" />
+    <Resource Include="Resources\직화낙지덮밥.jpg" />
+    <Resource Include="Resources\직화닭가슴살덮밥.jpg" />
+    <Resource Include="Resources\직화소고기덮밥.jpg" />
+    <Resource Include="Resources\직화제육덮밥.jpg" />
+    <Resource Include="Resources\참치김밥.jpg" />
+    <Resource Include="Resources\치즈김밥.jpg" />
+    <Resource Include="Resources\치즈돈까스.jpg" />
+    <Resource Include="Resources\치즈라볶이.jpg" />
+    <Resource Include="Resources\킹소세지김밥.jpg" />
+    <Resource Include="Resources\한우사골 떡만두국.jpg" />
+    <Resource Include="Resources\호박죽.jpg" />
+    <Resource Include="Resources\황태해장국.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
