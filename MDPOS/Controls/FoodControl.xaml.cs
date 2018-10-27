@@ -118,10 +118,10 @@ namespace MDPOS.Controls
 
         public void selectedTable(object sender, TableInfo selectionTable)
         {
-            TableInfo = selectionTable;
-            TableInfo.Number = selectionTable.Number;
-            TableInfo.OrderTime = DateTime.Now;
-            App.TableViewModel.TableInfo = TableInfo;
+            App.TableViewModel.TableInfo = selectionTable;
+            // App.TableViewModel.TableInfo.Number = selectionTable.Number;
+            // App.TableViewModel.TableInfo.OrderTime = DateTime.Now;
+            // App.TableViewModel.TableInfo = App.TableViewModel.TableInfo;
 
             this.DataContext = App.TableViewModel.TableInfo;
             lvFood.SelectedItem = null;
