@@ -34,7 +34,7 @@ namespace MDPOS.Controls
     public partial class FoodControl : UserControl
     {
 
-        TableInfo TableInfo = new TableInfo();
+       // TableInfo TableInfo = new TableInfo();
 
         public FoodControl()
         {
@@ -52,7 +52,8 @@ namespace MDPOS.Controls
         private void InitDate()
         {
             lvFood.ItemsSource = App.FoodViewModel.Items;
-            this.DataContext = TableInfo;
+
+          //  this.DataContext = App.TableViewModel.TableInfo;
         }
 
         #region 카테고리 변경
@@ -122,6 +123,7 @@ namespace MDPOS.Controls
             TableInfo.OrderTime = DateTime.Now;
             App.TableViewModel.TableInfo = TableInfo;
 
+            this.DataContext = App.TableViewModel.TableInfo;
             lvFood.SelectedItem = null;
 
 
@@ -129,27 +131,27 @@ namespace MDPOS.Controls
             InitOrder();
 
             App.TableViewModel.lstBeforeFood.Clear();
-            TableInfo.lstOrder.ToList().ForEach(s => App.TableViewModel.lstBeforeFood.Add((Food)s.Clone()));
+            App.TableViewModel.TableInfo.lstOrder.ToList().ForEach(s => App.TableViewModel.lstBeforeFood.Add((Food)s.Clone()));
         }
 
         private void CheckIsOrder()
         {
-            if (TableInfo.lstOrder.Count > 0)
+            if (App.TableViewModel.TableInfo.lstOrder.Count > 0)
             {
-                TableInfo.IsOrder = true;
+                App.TableViewModel.TableInfo.IsOrder = true;
             }
             else
             {
-                TableInfo.IsOrder = false;
+                App.TableViewModel.TableInfo.IsOrder = false;
             }
         }
 
         private void InitOrder()
         {
-            lvOrders.ItemsSource = TableInfo.lstOrder;
+            lvOrders.ItemsSource = App.TableViewModel.TableInfo.lstOrder;
 
             int total = 0;
-            foreach(Food food in TableInfo.lstOrder)
+            foreach(Food food in App.TableViewModel.TableInfo.lstOrder)
             {
                 total += food.Orders * food.Price;
             }
@@ -167,11 +169,11 @@ namespace MDPOS.Controls
             if (btnName.Equals(ActionOrder.btnBack.ToString()))
             {// Back
                 this.Visibility = Visibility.Collapsed;
-                if (TableInfo.IsOrder)
+                if (App.TableViewModel.TableInfo.IsOrder)
                 {
-                    if (!App.TableViewModel.lstBeforeFood.Equals(TableInfo.lstOrder))
+                    if (!App.TableViewModel.lstBeforeFood.Equals(App.TableViewModel.TableInfo.lstOrder))
                     { // 이전 주문목록이랑 다를 때
-                        TableInfo.lstOrder = new ObservableCollection<Food>(App.TableViewModel.lstBeforeFood);
+                        App.TableViewModel.TableInfo.lstOrder = new ObservableCollection<Food>(App.TableViewModel.lstBeforeFood);
                         return;
                     }
                     return;
@@ -182,8 +184,8 @@ namespace MDPOS.Controls
             {// 주문
                 this.Visibility = Visibility.Collapsed;
                 EnableBtn(false);
-                TableInfo.IsOrder = true;
-                if (TableInfo.lstOrder.Count == 0)
+                App.TableViewModel.TableInfo.IsOrder = true;
+                if (App.TableViewModel.TableInfo.lstOrder.Count == 0)
                 {
                     return;
                 }
@@ -250,7 +252,7 @@ namespace MDPOS.Controls
         
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if (TableInfo.lstOrder.Count < 0)
+            if (App.TableViewModel.TableInfo.lstOrder.Count < 0)
             {
                 return;
             }
@@ -268,11 +270,11 @@ namespace MDPOS.Controls
 
             string Title = "결제확인";
             App.TableViewModel.Order();
-            MessageBoxResult messageBoxResult = MessageBox.Show(Pay + "\n" + TableInfo.Orders, Title, MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show(Pay + "\n" + App.TableViewModel.TableInfo.Orders, Title, MessageBoxButton.YesNo);
 
             if((int)messageBoxResult == (int)MessageBoxResult.Yes)
             {
-                App.StatViewModel.Add(TableInfo.lstOrder);
+                App.StatViewModel.Add(App.TableViewModel.TableInfo.lstOrder);
                 this.Visibility = Visibility.Collapsed;
                 App.TableViewModel.TableInfoClear();
             }

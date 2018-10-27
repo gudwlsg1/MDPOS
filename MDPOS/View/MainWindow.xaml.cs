@@ -85,6 +85,7 @@ namespace MDPOS
         private void lvTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TableInfo selectionTable = lvTable.SelectedItem as TableInfo;
+            selectionTable.OrderTime = DateTime.Now;
 
             ctrlFood.Visibility = Visibility.Visible;
             ctrlFood.selectedTable(this, selectionTable);
