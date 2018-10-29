@@ -23,6 +23,7 @@ namespace MDPOS.Controls
     /// </summary>
     public partial class ProgressBarControl : UserControl
     {
+        private const int MAX_VALUE = 100;
         public ProgressBarControl()
         {
             InitializeComponent();
@@ -32,6 +33,14 @@ namespace MDPOS.Controls
 
         private void ProgressBarControl_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= ProgressBarControl_Loaded;
+            InitProgressBar();
+        }
+
+        private void InitProgressBar()
+        {
+            pbLoading.ValueChanged += PbLoading_ValueChanged;
+
             Task.Run(() =>
             {
                 for (int i = 1; i <= 100; i++)
@@ -40,13 +49,17 @@ namespace MDPOS.Controls
                     this.Dispatcher.Invoke(() =>
                     {
                         pbLoading.Value = i;
-                        if(pbLoading.Value >= 100)
-                        {
-                            this.Visibility = Visibility.Collapsed;
-                        }
                     });
                 }
             });
+        }
+
+        private void PbLoading_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (pbLoading.Value >= MAX_VALUE)
+            {
+                this.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
