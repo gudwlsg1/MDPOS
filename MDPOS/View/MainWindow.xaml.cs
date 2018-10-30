@@ -35,10 +35,10 @@ namespace MDPOS
         {
             this.Loaded -= MainWindow_Loaded;
 
-            InitDate();
+            InitData();
         }
 
-        private void InitDate()
+        private void InitData()
         {
             lvTable.ItemsSource = App.TableViewModel.Items;
             lvFunction.SelectedIndex = 0;
@@ -88,7 +88,7 @@ namespace MDPOS
             selectionTable.OrderTime = DateTime.Now;
 
             ctrlFood.Visibility = Visibility.Visible;
-            ctrlFood.selectedTable(this, selectionTable);
+            ctrlFood.selectedTable(selectionTable.Number);
         }
     }
 }

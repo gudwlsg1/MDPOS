@@ -13,7 +13,6 @@ namespace MDPOS.ViewModel
     public class TableViewModel
     {
         public ObservableCollection<TableInfo> Items;
-        public TableInfo TableInfo;
         public List<Food> lstBeforeFood;
 
         public TableViewModel()
@@ -31,19 +30,20 @@ namespace MDPOS.ViewModel
             }
         }
 
-        public void AddOrders(Food selectionFood, bool IsMinus = false)
+        public void AddOrders(Food selectionFood, int tableNum, bool IsMinus = false)
         {
             Food Clonefood = (Food)selectionFood.Clone();
+            TableInfo tableInfo = GetTable(tableNum);
 
-            if (TableInfo.lstOrder.Where(w => w.Name == Clonefood.Name).FirstOrDefault() != null)
+            if (tableInfo.lstOrder.Where(w => w.Name == Clonefood.Name).FirstOrDefault() != null)
             {  // TableInfo.lstOrder에 중복 Food가 존재 할 시
-                Food food = TableInfo.lstOrder.Where(w => w.Name == Clonefood.Name).FirstOrDefault();
+                Food food = tableInfo.lstOrder.Where(w => w.Name == Clonefood.Name).FirstOrDefault();
                 if (IsMinus)
                 { // -버튼을 클릭할 때
                     food.Orders--;
                     if (food.Orders <= 0)
                     {
-                        TableInfo.lstOrder.Remove(food);
+                        tableInfo.lstOrder.Remove(food);
                     }
                     return;
                 }
@@ -51,34 +51,44 @@ namespace MDPOS.ViewModel
                 return;
             }
             Clonefood.Orders++;
-            TableInfo.lstOrder.Add(Clonefood);
+            tableInfo.lstOrder.Add(Clonefood);
         }
 
-        internal void RemoveOrder(Food selectionFood, bool removeAll = false)
+        internal void RemoveOrder(Food selectionFood,int talbeNum, bool removeAll = false)
         {
+            TableInfo tableInfo = GetTable(talbeNum);
             if (removeAll)
             {
-                TableInfo.lstOrder.Clear();
+                tableInfo.lstOrder.Clear();
                 return;
             }
-            TableInfo.lstOrder.Remove(selectionFood);
+            tableInfo.lstOrder.Remove(selectionFood);
         }
 
-        internal void Order()
+        internal void Order(int tableNum)
         {
-            TableInfo.Orders = string.Empty;
-            foreach (Food food in TableInfo.lstOrder)
+            TableInfo tableInfo = GetTable(tableNum);
+
+            tableInfo.Orders = string.Empty;
+            foreach (Food food in tableInfo.lstOrder)
             {
-                TableInfo.Orders += food.Name + " * " + food.Orders + "\n";
+                tableInfo.Orders += food.Name + " * " + food.Orders + "\n";
             }
         }
 
-        internal void TableInfoClear()
+        internal void TableInfoClear(int tableNum)
         {
-            TableInfo.Orders = string.Empty;
-            TableInfo.Total = 0;
-            TableInfo.lstOrder.Clear();
-            TableInfo.IsOrder = false;
+            TableInfo tableInfo = GetTable(tableNum);
+
+            tableInfo.Orders = string.Empty;
+            tableInfo.Total = 0;
+            tableInfo.lstOrder.Clear();
+            tableInfo.IsOrder = false;
+        }
+
+        internal TableInfo GetTable(int tableNum)
+        {
+            return Items.Where(w => w.Number == tableNum).FirstOrDefault();
         }
     }
 }

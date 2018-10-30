@@ -34,7 +34,7 @@ namespace MDPOS.Controls
     public partial class FoodControl : UserControl
     {
 
-       // TableInfo TableInfo = new TableInfo();
+        private TableInfo TableInfo;
 
         public FoodControl()
         {
@@ -46,14 +46,12 @@ namespace MDPOS.Controls
         {
             this.Loaded -= FoodControl_Loaded;
 
-            InitDate();
+            InitData();
         }
 
-        private void InitDate()
+        private void InitData()
         {
             lvFood.ItemsSource = App.FoodViewModel.Items;
-
-          //  this.DataContext = App.TableViewModel.TableInfo;
         }
 
         #region 카테고리 변경
@@ -91,7 +89,7 @@ namespace MDPOS.Controls
                 return;
             }
             Food food = lvFood.SelectedItem as Food;
-            App.TableViewModel.AddOrders(food);
+            App.TableViewModel.AddOrders(food, TableInfo.Number);
             InitOrder();
         }
 
@@ -116,42 +114,46 @@ namespace MDPOS.Controls
             btnOrderSub.IsEnabled = action;
         }
 
-        public void selectedTable(object sender, TableInfo selectionTable)
+        public void selectedTable(int tableNum)
         {
-            App.TableViewModel.TableInfo = selectionTable;
-            // App.TableViewModel.TableInfo.Number = selectionTable.Number;
-            // App.TableViewModel.TableInfo.OrderTime = DateTime.Now;
-            // App.TableViewModel.TableInfo = App.TableViewModel.TableInfo;
+            TableInfo = App.TableViewModel.GetTable(tableNum);
+            if(TableInfo == null)
+            {
+                MessageBox.Show("테이블에 관한 예외처리가 존재합니다.");
+                this.Visibility = Visibility.Collapsed;
+                return;
+            }
 
-            this.DataContext = App.TableViewModel.TableInfo;
+            tbTableNum.Text = TableInfo.Number.ToString();
+            tbOrderTime.Text = TableInfo.OrderTime.ToString();
+
             lvFood.SelectedItem = null;
-
 
             CheckIsOrder();
             InitOrder();
 
             App.TableViewModel.lstBeforeFood.Clear();
-            App.TableViewModel.TableInfo.lstOrder.ToList().ForEach(s => App.TableViewModel.lstBeforeFood.Add((Food)s.Clone()));
+            TableInfo.lstOrder.ToList().ForEach(s => App.TableViewModel.lstBeforeFood.Add((Food)s.Clone()));
         }
 
         private void CheckIsOrder()
         {
-            if (App.TableViewModel.TableInfo.lstOrder.Count > 0)
+            if (TableInfo.lstOrder.Count > 0)
             {
-                App.TableViewModel.TableInfo.IsOrder = true;
+                TableInfo.IsOrder = true;
             }
             else
             {
-                App.TableViewModel.TableInfo.IsOrder = false;
+                TableInfo.IsOrder = false;
             }
         }
 
         private void InitOrder()
         {
-            lvOrders.ItemsSource = App.TableViewModel.TableInfo.lstOrder;
+            lvOrders.ItemsSource = TableInfo.lstOrder;
 
             int total = 0;
-            foreach(Food food in App.TableViewModel.TableInfo.lstOrder)
+            foreach(Food food in TableInfo.lstOrder)
             {
                 total += food.Orders * food.Price;
             }
@@ -169,27 +171,28 @@ namespace MDPOS.Controls
             if (btnName.Equals(ActionOrder.btnBack.ToString()))
             {// Back
                 this.Visibility = Visibility.Collapsed;
-                if (App.TableViewModel.TableInfo.IsOrder)
+                if (TableInfo.IsOrder)
                 {
-                    if (!App.TableViewModel.lstBeforeFood.Equals(App.TableViewModel.TableInfo.lstOrder))
+                    if (!App.TableViewModel.lstBeforeFood.Equals(TableInfo.lstOrder))
                     { // 이전 주문목록이랑 다를 때
-                        App.TableViewModel.TableInfo.lstOrder = new ObservableCollection<Food>(App.TableViewModel.lstBeforeFood);
+                        TableInfo.lstOrder = new ObservableCollection<Food>(App.TableViewModel.lstBeforeFood);
                         return;
                     }
                     return;
                 }
-                App.TableViewModel.RemoveOrder(food, true);
+                App.TableViewModel.RemoveOrder(food, TableInfo.Number, true);
             }
             else if (btnName.Equals(ActionOrder.btnOrder.ToString()))
             {// 주문
                 this.Visibility = Visibility.Collapsed;
                 EnableBtn(false);
-                App.TableViewModel.TableInfo.IsOrder = true;
-                if (App.TableViewModel.TableInfo.lstOrder.Count == 0)
-                {
+                TableInfo.IsOrder = true;
+                if (TableInfo.lstOrder.Count == 0)
+                {// 전체취소 후 주문
+                    App.TableViewModel.TableInfoClear(TableInfo.Number);
                     return;
                 }
-                App.TableViewModel.Order();
+                App.TableViewModel.Order(TableInfo.Number);
             }
         }
         /// <summary>
@@ -205,11 +208,11 @@ namespace MDPOS.Controls
 
             if (btnName.Equals(ActionOrder.btnOrderAdd.ToString()))
             {// +
-                App.TableViewModel.AddOrders(food);
+                App.TableViewModel.AddOrders(food, TableInfo.Number);
             }
             else if (btnName.Equals(ActionOrder.btnOrderSub.ToString()))
             {// -
-                App.TableViewModel.AddOrders(food, true);
+                App.TableViewModel.AddOrders(food, TableInfo.Number, true);
             }
 
             InitOrder();
@@ -228,11 +231,11 @@ namespace MDPOS.Controls
 
             if (btnName.Equals(ActionOrder.btnCancle.ToString()))
             {// 취소
-                App.TableViewModel.RemoveOrder(food);
+                App.TableViewModel.RemoveOrder(food, TableInfo.Number);
             }
             else if (btnName.Equals(ActionOrder.btnAllCancle.ToString()))
             {// 전체취소
-                App.TableViewModel.RemoveOrder(null, true);
+                App.TableViewModel.RemoveOrder(null, TableInfo.Number, true);
                 lvOrders.SelectedItem = null;
             }
             InitOrder();
@@ -252,7 +255,7 @@ namespace MDPOS.Controls
         
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if (App.TableViewModel.TableInfo.lstOrder.Count < 0)
+            if (TableInfo.lstOrder.Count < 0)
             {
                 return;
             }
@@ -269,14 +272,14 @@ namespace MDPOS.Controls
             }
 
             string Title = "결제확인";
-            App.TableViewModel.Order();
-            MessageBoxResult messageBoxResult = MessageBox.Show(Pay + "\n" + App.TableViewModel.TableInfo.Orders, Title, MessageBoxButton.YesNo);
+            App.TableViewModel.Order(TableInfo.Number);
+            MessageBoxResult messageBoxResult = MessageBox.Show(Pay + "\n" + TableInfo.Orders, Title, MessageBoxButton.YesNo);
 
             if((int)messageBoxResult == (int)MessageBoxResult.Yes)
             {
-                App.StatViewModel.Add(App.TableViewModel.TableInfo.lstOrder);
+                App.StatViewModel.Add(TableInfo.lstOrder);
                 this.Visibility = Visibility.Collapsed;
-                App.TableViewModel.TableInfoClear();
+                App.TableViewModel.TableInfoClear(TableInfo.Number);
             }
             return;
         }
