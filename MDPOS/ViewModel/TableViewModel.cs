@@ -53,7 +53,6 @@ namespace MDPOS.ViewModel
             Clonefood.Orders++;
             tableInfo.lstOrder.Add(Clonefood);
         }
-
         internal void RemoveOrder(Food selectionFood,int talbeNum, bool removeAll = false)
         {
             TableInfo tableInfo = GetTable(talbeNum);

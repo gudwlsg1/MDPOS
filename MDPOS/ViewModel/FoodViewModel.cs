@@ -58,6 +58,17 @@ namespace MDPOS.ViewModel
             // 계절음식
             Items.Add(new Food() { Category = Category.계절음식, Name = "냉면", Price = 6000, Orders = 0 });
             Items.Add(new Food() { Category = Category.계절음식, Name = "냉모밀", Price = 6000, Orders = 0 });
+
+            //음료
+            Items.Add(new Food() { Category = Category.음료, Name = "코카콜라", Price = 1000, Orders = 0, Barcode = "8801094017200" });
+            //Items.Add(new Food() { Category = Category.음료, Name = "코카콜라", Price = 1000, Orders = 0, Barcode = "8801056055202" });
+            Items.Add(new Food() { Category = Category.음료, Name = "펩시", Price = 1000, Orders = 0, Barcode = "8801056070809" });
+        }
+
+        internal Food GetFood(string barCode)
+        {
+            Food food = Items.Where(w => w.Barcode != null && w.Barcode.Equals(barCode)).FirstOrDefault();
+            return food;
         }
     }
 }

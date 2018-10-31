@@ -44,7 +44,7 @@ namespace MDPOS.Controls
             {
                 new ColumnSeries
                 {
-                    Values = new ChartValues<int>(App.StatViewModel.item.Select(w => w.Orders))
+                    Values = new ChartValues<int>(App.StatViewModel.item.Select(w => w.Orders)),
                 }
             };
 

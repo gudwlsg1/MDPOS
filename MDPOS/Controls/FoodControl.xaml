@@ -83,6 +83,7 @@
             <ListBoxItem Style="{StaticResource lvCategoryListItemValues}">식사류</ListBoxItem>
             <ListBoxItem Style="{StaticResource lvCategoryListItemValues}">분식류</ListBoxItem>
             <ListBoxItem Style="{StaticResource lvCategoryListItemValues}">계절음식</ListBoxItem>
+            <ListBoxItem Style="{StaticResource lvCategoryListItemValues}">음료</ListBoxItem>
         </ListBox>
 
         <ListView x:Name="lvOrders" Grid.Column="1" Grid.Row="2"

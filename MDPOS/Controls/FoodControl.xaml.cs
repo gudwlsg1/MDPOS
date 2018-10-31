@@ -33,7 +33,7 @@ namespace MDPOS.Controls
     }
     public partial class FoodControl : UserControl
     {
-
+        private string BarCode = string.Empty;
         private TableInfo TableInfo;
 
         public FoodControl()
@@ -45,8 +45,28 @@ namespace MDPOS.Controls
         private void FoodControl_Loaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= FoodControl_Loaded;
-
+            this.PreviewTextInput += FoodControl_PreviewTextInput;
             InitData();
+        }
+
+        private void FoodControl_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Equals("\r"))
+            {
+                AddBarcodeFood();
+                BarCode = string.Empty;
+                return;
+            }
+            BarCode += e.Text;
+        }
+
+        internal void AddBarcodeFood()
+        {
+            Food food = App.FoodViewModel.GetFood(BarCode);
+            if(food != null && TableInfo != null)
+            {
+                App.TableViewModel.AddOrders(food, TableInfo.Number);
+            }
         }
 
         private void InitData()
@@ -190,6 +210,7 @@ namespace MDPOS.Controls
                 if (TableInfo.lstOrder.Count == 0)
                 {// 전체취소 후 주문
                     App.TableViewModel.TableInfoClear(TableInfo.Number);
+                    TableInfo.IsOrder = false;
                     return;
                 }
                 App.TableViewModel.Order(TableInfo.Number);

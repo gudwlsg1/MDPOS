@@ -12,7 +12,8 @@ namespace MDPOS.Model
         김밥류,
         식사류,
         분식류,
-        계절음식
+        계절음식,
+        음료
     }
 
     public class Food : INotifyPropertyChanged, ICloneable
@@ -60,6 +61,8 @@ namespace MDPOS.Model
             }
         }
         public string Picture { get; set; }
+
+        public string Barcode { get; set; }
 
         private void OnPropertyChanged(string propertyName)
         {

@@ -33,5 +33,24 @@ namespace MDPOS.ViewModel
                 App.StatViewModel.item.Add(Clonefood);
             }
         }
+
+        internal List<Food> GetCategoryList(Category category)
+        {
+            return App.StatViewModel.item.Where(w => w.Category == category).Cast<Food>().ToList();
+        }
+
+        internal int GetCategoryOrder(Category category, List<Food> lstOrder)
+        {
+            int sum = 0;
+            lstOrder.ForEach(s => sum += s.Orders);
+            return sum;
+        }
+
+        internal int GetCategoryTotal(Category category, List<Food> lstOrder)
+        {
+            int total = 0;
+            lstOrder.ForEach(s => total += s.Price * s.Orders);
+            return total;
+        }
     }
 }

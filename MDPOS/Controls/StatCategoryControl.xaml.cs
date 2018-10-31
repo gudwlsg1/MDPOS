@@ -36,29 +36,43 @@ namespace MDPOS.Controls
         public event PropertyChangedEventHandler PropertyChanged;
         public void InitChart()
         {
-            Labels = new string[] { Category.계절음식.ToString(), Category.김밥류.ToString(), Category.분식류.ToString(), Category.식사류.ToString() }; 
+            if(App.StatViewModel.item.Count <= 0)
+            {
+                return;
+            }
+
+            Labels = new string[] { Category.계절음식.ToString(), Category.김밥류.ToString(), Category.분식류.ToString(), Category.식사류.ToString(), Category.음료.ToString() }; 
             OnPropertyChanged("Labels");
 
-            List<Food> lstSeansonFood = App.StatViewModel.item.Where(w => w.Category == Category.계절음식).Cast<Food>().ToList();
-            List<Food> lstKimbapFood = App.StatViewModel.item.Where(w => w.Category == Category.김밥류).Cast<Food>().ToList();
-            List<Food> lstBunsicFood = App.StatViewModel.item.Where(w => w.Category == Category.분식류).Cast<Food>().ToList();
-            List<Food> lstMealnFood = App.StatViewModel.item.Where(w => w.Category == Category.식사류).Cast<Food>().ToList();
+            List<Food> lstSeansonFood = App.StatViewModel.GetCategoryList(Category.계절음식);
+            List<Food> lstKimbapFood = App.StatViewModel.GetCategoryList(Category.김밥류);
+            List<Food> lstBunsicFood = App.StatViewModel.GetCategoryList(Category.분식류);
+            List<Food> lstMealnFood = App.StatViewModel.GetCategoryList(Category.식사류);
+            List<Food> lstDrinkFood = App.StatViewModel.GetCategoryList(Category.음료);
 
-            int cntSeasonFood = 0;
-            int cntKimbapFood = 0;
-            int cntBunsicFood = 0;
-            int cntMealFood = 0;
+            int cntSeasonFood = App.StatViewModel.GetCategoryOrder(Category.계절음식, lstSeansonFood);
+            int cntKimbapFood = App.StatViewModel.GetCategoryOrder(Category.김밥류, lstKimbapFood);
+            int cntBunsicFood = App.StatViewModel.GetCategoryOrder(Category.분식류, lstBunsicFood);
+            int cntMealFood = App.StatViewModel.GetCategoryOrder(Category.식사류, lstMealnFood);
+            int cntDrinkFood = App.StatViewModel.GetCategoryOrder(Category.음료, lstDrinkFood);
 
-            lstSeansonFood.ForEach(s => cntSeasonFood += s.Orders);
-            lstKimbapFood.ForEach(s => cntKimbapFood += s.Orders);
-            lstBunsicFood.ForEach(s => cntBunsicFood += s.Orders);
-            lstMealnFood.ForEach(s => cntMealFood += s.Orders);
+            int totalSeasonFood = App.StatViewModel.GetCategoryTotal(Category.계절음식, lstSeansonFood); 
+            int totalKimbapFood = App.StatViewModel.GetCategoryTotal(Category.김밥류, lstKimbapFood); 
+            int totalBunsicFood = App.StatViewModel.GetCategoryTotal(Category.분식류, lstBunsicFood); 
+            int totalMealFood = App.StatViewModel.GetCategoryTotal(Category.식사류, lstMealnFood);
+            int totalDrinkFood = App.StatViewModel.GetCategoryTotal(Category.음료, lstMealnFood);
+
+            Dictionary<int, int> DictionaryTotal = new Dictionary<int, int>();
+            DictionaryTotal.Add(1, totalSeasonFood);
+            DictionaryTotal.Add(2, totalKimbapFood);
+            DictionaryTotal.Add(3, totalBunsicFood);
+            DictionaryTotal.Add(4, totalMealFood);
 
             SeriesCollection = new SeriesCollection
-            {
+            { 
                 new ColumnSeries
                 {
-                    Values = new ChartValues<int>() { cntSeasonFood, cntKimbapFood, cntBunsicFood, cntMealFood}
+                    Values = new ChartValues<int>() { cntSeasonFood, cntKimbapFood, cntBunsicFood, cntMealFood, cntDrinkFood}
                 }
             };
 
