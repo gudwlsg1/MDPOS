@@ -73,6 +73,7 @@ namespace MDPOS.ViewModel
             {
                 tableInfo.Orders += food.Name + " * " + food.Orders + "\n";
             }
+            tableInfo.OrderTime = DateTime.Now;
         }
 
         internal void TableInfoClear(int tableNum)

@@ -59,7 +59,7 @@ namespace MDPOS
 
             if (dateTime.Hour == 0)
             {
-                App.StatViewModel.item.Clear();
+                App.FoodViewModel.StatItems.Clear();
             }
 
             Time = string.Format("{0:g}", dateTime);
@@ -85,7 +85,6 @@ namespace MDPOS
         private void lvTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TableInfo selectionTable = lvTable.SelectedItem as TableInfo;
-            selectionTable.OrderTime = DateTime.Now;
 
             ctrlFood.Visibility = Visibility.Visible;
             ctrlFood.selectedTable(selectionTable.Number);

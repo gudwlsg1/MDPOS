@@ -28,23 +28,38 @@ namespace MDPOS.Controls
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(App.FoodViewModel.StatItems.Count <= 0)
+            {
+                return;
+            }
             ListViewItem listViewItem = lvCondition.SelectedItem as ListViewItem;
             string Condition = (string)listViewItem.Content;
 
             if (Condition.Equals("메뉴별"))
             {
-                ctrlStatCategory.Visibility = Visibility.Collapsed;
-                ctrlStatMenu.Visibility = Visibility.Visible;
+                SetCtrlVisibility(Visibility.Visible, Visibility.Collapsed, Visibility.Collapsed);
 
                 ctrlStatMenu.InitChart();
             }
-            else
+            else if(Condition.Equals("카테고리별"))
             {
-                ctrlStatCategory.Visibility = Visibility.Visible;
-                ctrlStatMenu.Visibility = Visibility.Collapsed;
+                SetCtrlVisibility(Visibility.Collapsed, Visibility.Visible, Visibility.Collapsed);
 
                 ctrlStatCategory.InitChart();
             }
+            else
+            {
+                SetCtrlVisibility(Visibility.Collapsed, Visibility.Collapsed, Visibility.Visible);
+
+                ctrlStatPay.InitChart();
+            }
+        }
+
+        private void SetCtrlVisibility(Visibility MenuVisibility, Visibility CategoryVisibility, Visibility PayVisibility)
+        {
+            ctrlStatMenu.Visibility = MenuVisibility;
+            ctrlStatCategory.Visibility = CategoryVisibility;
+            ctrlStatPay.Visibility = PayVisibility;
         }
     }
 }

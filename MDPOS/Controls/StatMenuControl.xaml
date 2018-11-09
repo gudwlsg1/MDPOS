@@ -8,13 +8,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <lvc:CartesianChart Series="{Binding SeriesCollection}">
+        <!-- <lvc:CartesianChart Series="{Binding SeriesCollection}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="메뉴이름" Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="메뉴개수" LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        </lvc:CartesianChart> -->
+        <ListView x:Name="lvChart">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="음식이름" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="음식개수" DisplayMemberBinding="{Binding Orders}"/>
+                    <GridViewColumn Header="단가" DisplayMemberBinding="{Binding Price}"/>
+                    <GridViewColumn Header="총합" DisplayMemberBinding="{Binding Total}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

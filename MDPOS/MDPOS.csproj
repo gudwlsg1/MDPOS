@@ -81,6 +81,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\StatPayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,11 +108,15 @@
     <Compile Include="Controls\StatContainer.xaml.cs">
       <DependentUpon>StatContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StatPayControl.xaml.cs">
+      <DependentUpon>StatPayControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Food.cs" />
-    <Compile Include="Model\Stat.cs" />
     <Compile Include="Model\TableInfo.cs" />
     <Compile Include="ViewModel\FoodViewModel.cs" />
-    <Compile Include="ViewModel\StatViewModel.cs" />
+    <Compile Include="ViewModel\Stat.cs">
+      <DependentUpon>FoodViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\TableViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using MDPOS.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace MDPOS.ViewModel
 {
-    public class FoodViewModel
+
+    public partial class FoodViewModel
     {
         public ObservableCollection<Food> Items { get; set; }
+
         public FoodViewModel()
         {
             Items = new ObservableCollection<Food>();
+            StatItems = new ObservableCollection<Food>();
             InitData();
         }
         private void InitData()
@@ -63,6 +67,11 @@ namespace MDPOS.ViewModel
             Items.Add(new Food() { Category = Category.음료, Name = "코카콜라", Price = 1000, Orders = 0, Barcode = "8801094017200" });
             //Items.Add(new Food() { Category = Category.음료, Name = "코카콜라", Price = 1000, Orders = 0, Barcode = "8801056055202" });
             Items.Add(new Food() { Category = Category.음료, Name = "펩시", Price = 1000, Orders = 0, Barcode = "8801056070809" });
+        }
+
+        internal List<Food> GetCategoryFood(string category)
+        {
+            return Items.Where(w => w.Category.ToString() == category).ToList();
         }
 
         internal Food GetFood(string barCode)

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\45879\source\repos\MDPOS\MDPOS\App.xaml
-61883977346
+7263699327
 
-16243637365
+16395652985
 15-453369548
-Controls\FoodControl.xaml;Controls\ProgressBarControl.xaml;Controls\StatCategoryControl.xaml;Controls\StatMenuControl.xaml;Controls\StatContainer.xaml;View\MainWindow.xaml;
+Controls\FoodControl.xaml;Controls\ProgressBarControl.xaml;Controls\StatCategoryControl.xaml;Controls\StatMenuControl.xaml;Controls\StatContainer.xaml;Controls\StatPayControl.xaml;View\MainWindow.xaml;
 
 False
 

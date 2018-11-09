@@ -31,3 +31,5 @@ C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\Controls\StatCategoryControl.b
 C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\Controls\ProgressBarControl.g.cs
 C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\Controls\ProgressBarControl.baml
 C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\MDPOS.csprojAssemblyReference.cache
+C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\Controls\StatPayControl.g.cs
+C:\Users\45879\source\repos\MDPOS\MDPOS\obj\Debug\Controls\StatPayControl.baml

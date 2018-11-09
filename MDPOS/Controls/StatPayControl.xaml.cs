@@ -1,7 +1,6 @@
-﻿using System;
+﻿using MDPOS.Model;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,29 +13,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using MDPOS.Model;
 
 namespace MDPOS.Controls
 {
     /// <summary>
-    /// Interaction logic for MenuStatControl.xaml
+    /// Interaction logic for StatPayControl.xaml
     /// </summary>
-    public partial class StatMenuControl : UserControl
+    public partial class StatPayControl : UserControl
     {
-        
-
-        public StatMenuControl()
+        public StatPayControl()
         {
             InitializeComponent();
         }
 
-        public void InitChart()
+        internal void InitChart()
         {
-            lvChart.ItemsSource = App.FoodViewModel.GetMenuList();
+            lvChart.ItemsSource = App.FoodViewModel.GetPayList();
         }
-
     }
 }

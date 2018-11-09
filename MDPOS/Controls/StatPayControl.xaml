@@ -1,26 +1,16 @@
-﻿<UserControl x:Class="MDPOS.Controls.StatCategoryControl"
+﻿<UserControl x:Class="MDPOS.Controls.StatPayControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MDPOS.Controls"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <!-- <lvc:CartesianChart Series="{Binding SeriesCollection}">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="카테고리명" Labels="{Binding Labels}" />
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="카테고리 개수" LabelFormatter="{Binding Formatter}" />
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
-        -->
         <ListView x:Name="lvChart">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="카테고리 이름" DisplayMemberBinding="{Binding Category}"/>
+                    <GridViewColumn Header="결제 방법" DisplayMemberBinding="{Binding Pay}"/>
                     <GridViewColumn Header="주문 개수" DisplayMemberBinding="{Binding Orders}"/>
                     <GridViewColumn Header="총합" DisplayMemberBinding="{Binding Total}"/>
                 </GridView>

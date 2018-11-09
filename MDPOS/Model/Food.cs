@@ -16,6 +16,12 @@ namespace MDPOS.Model
         음료
     }
 
+    public enum Pay
+    {
+        Card,
+        Money
+    }
+
     public class Food : INotifyPropertyChanged, ICloneable
     {
         public Category Category { get; set; }
@@ -64,6 +70,19 @@ namespace MDPOS.Model
 
         public string Barcode { get; set; }
 
+        private int total;
+        public int Total
+        {
+            get => total;
+            set
+            {
+                total = value;
+                OnPropertyChanged(nameof(Total));
+            }
+        }
+
+        public Pay Pay { get; set; }
+
         private void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -75,8 +94,10 @@ namespace MDPOS.Model
             food.Name = this.Name;
             food.Category = this.Category;
             food.Orders = this.Orders;
+            food.Total = this.Total;
             food.Picture = this.Picture;
             food.Price = this.Price;
+            food.Pay = this.Pay;
 
             return food;
         }

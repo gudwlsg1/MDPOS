@@ -17,6 +17,5 @@ namespace MDPOS
     {
         public static FoodViewModel FoodViewModel = new FoodViewModel();
         public static TableViewModel TableViewModel = new TableViewModel();
-        public static StatViewModel StatViewModel = new StatViewModel();
     }
 }

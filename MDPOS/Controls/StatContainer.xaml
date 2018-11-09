@@ -25,10 +25,11 @@
             </ListView.ItemsPanel>
             <ListViewItem Style="{StaticResource lvCategoryListItemValues}">메뉴별</ListViewItem>
             <ListViewItem Style="{StaticResource lvCategoryListItemValues}">카테고리별</ListViewItem>
+            <ListViewItem Style="{StaticResource lvCategoryListItemValues}">결제별</ListViewItem>
         </ListView>
 
         <local:StatMenuControl x:Name="ctrlStatMenu" Grid.Row="1" Visibility="Collapsed"/>
         <local:StatCategoryControl x:Name="ctrlStatCategory" Grid.Row="1" Visibility="Collapsed"/>
-
+        <local:StatPayControl x:Name="ctrlStatPay" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

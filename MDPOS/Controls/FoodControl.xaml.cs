@@ -46,8 +46,22 @@ namespace MDPOS.Controls
         {
             this.Loaded -= FoodControl_Loaded;
             this.PreviewTextInput += FoodControl_PreviewTextInput;
+           // this.KeyDown += FoodControl_KeyDown;
+            
             InitData();
         }
+
+       /* private void FoodControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }*/
+
+       /* protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+        }*/
+
+
 
         private void FoodControl_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -82,22 +96,13 @@ namespace MDPOS.Controls
         }
         private void ChangelvFood(string Category)
         {
-            List<Food> lstFood = new List<Food>();
             if (Category.Equals("전체"))
             {
                 lvFood.ItemsSource = App.FoodViewModel.Items;
-                return;
             }
             else
             {
-                foreach (Food food in App.FoodViewModel.Items)
-                {
-                    if (Category.Equals(food.Category.ToString()))
-                    {
-                        lstFood.Add(food);
-                    }
-                }
-                lvFood.ItemsSource = lstFood;
+                lvFood.ItemsSource = App.FoodViewModel.GetCategoryFood(Category);
             }
         }
         #endregion
@@ -161,10 +166,12 @@ namespace MDPOS.Controls
             if (TableInfo.lstOrder.Count > 0)
             {
                 TableInfo.IsOrder = true;
+                btnPay.IsEnabled = true;
             }
             else
             {
                 TableInfo.IsOrder = false;
+                btnPay.IsEnabled = false;
             }
         }
 
@@ -183,7 +190,6 @@ namespace MDPOS.Controls
         #region Food Back, 주문, +, -, 취소, 전체취소
         private void ActionOrderClick(object sender, RoutedEventArgs e)
         {
-            //TODO: 코드를 더욱 깔끔히!, Back - 주문, 각각 하나씩 btnOrder을 정해준다.
             Button button = sender as Button;
             string btnName = button.Name;
             Food food = lvOrders.SelectedItem as Food;
@@ -281,15 +287,11 @@ namespace MDPOS.Controls
                 return;
             }
 
-            string Pay = string.Empty;
+            Pay Pay = Pay.Card;
 
-            if ((bool)btnCard.IsChecked)
+            if (!(bool)btnCard.IsChecked)
             {
-                Pay = (string)btnCard.Content;
-            }
-            else
-            {
-                Pay = (string)btnMoney.Content;
+                Pay = Pay.Money;
             }
 
             string Title = "결제확인";
@@ -298,7 +300,7 @@ namespace MDPOS.Controls
 
             if((int)messageBoxResult == (int)MessageBoxResult.Yes)
             {
-                App.StatViewModel.Add(TableInfo.lstOrder);
+                App.FoodViewModel.Add(TableInfo.lstOrder, Pay);
                 this.Visibility = Visibility.Collapsed;
                 App.TableViewModel.TableInfoClear(TableInfo.Number);
             }
