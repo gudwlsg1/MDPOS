@@ -7,8 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1400"
              MinHeight="800" MinWidth="1400">
+    
     <Grid Background="White">
+        
         <Image Source="/Resources/back.jpg" Width="auto" Height="auto"/>
+        
         <ProgressBar x:Name="pbLoading" 
                      Minimum="0" Maximum="100" Value="0" Height="40" Width="600"/>
     </Grid>

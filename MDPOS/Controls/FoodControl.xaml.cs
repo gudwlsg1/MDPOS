@@ -46,22 +46,9 @@ namespace MDPOS.Controls
         {
             this.Loaded -= FoodControl_Loaded;
             this.PreviewTextInput += FoodControl_PreviewTextInput;
-           // this.KeyDown += FoodControl_KeyDown;
             
             InitData();
         }
-
-       /* private void FoodControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            throw new NotImplementedException();
-        }*/
-
-       /* protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-        }*/
-
-
 
         private void FoodControl_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -81,6 +68,8 @@ namespace MDPOS.Controls
             {
                 App.TableViewModel.AddOrders(food, TableInfo.Number);
             }
+
+            InitOrder();
         }
 
         private void InitData()

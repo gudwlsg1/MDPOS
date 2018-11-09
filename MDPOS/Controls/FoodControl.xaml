@@ -39,15 +39,6 @@
             <Run x:Name="tbOrderTime" Text="주문시간" />
         </TextBlock> 
 
-       <!-- <DockPanel Grid.Column="1" Grid.Row="1" Margin="40,0,0,0" >
-            <TextBlock x:Name="tbTableNum"
-                 Text="{Binding Number}"
-                 FontWeight="Bold" FontSize="18"/>
-            <TextBlock Text="주문시간:"
-                 FontWeight="Bold" FontSize="18"/>
-            <TextBlock Text="{Binding OrderTime}" FontSize="18"/>
-        </DockPanel> -->
-
         <ListView x:Name="lvFood" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  Grid.Column="2" Grid.Row="2"
                  Height="650" VerticalAlignment="Top"

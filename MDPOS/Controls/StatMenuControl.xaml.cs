@@ -26,8 +26,6 @@ namespace MDPOS.Controls
     /// </summary>
     public partial class StatMenuControl : UserControl
     {
-        
-
         public StatMenuControl()
         {
             InitializeComponent();
