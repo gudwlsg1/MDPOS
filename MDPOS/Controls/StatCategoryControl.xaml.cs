@@ -32,7 +32,7 @@ namespace MDPOS.Controls
         public void InitChart()
         {
             List<Food> lstStat = App.FoodViewModel.GetCategoryList();
-            lvChart.ItemsSource =  lstStat.Where(w => w.Orders >= 1).Cast<Food>().ToList();
+            lvChart.ItemsSource =  lstStat.Where(w => w.Count >= 1).Cast<Food>().ToList();
         }
 
     }

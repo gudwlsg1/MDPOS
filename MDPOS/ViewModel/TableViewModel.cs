@@ -40,17 +40,17 @@ namespace MDPOS.ViewModel
                 Food food = tableInfo.lstOrder.Where(w => w.Name == Clonefood.Name).FirstOrDefault();
                 if (IsMinus)
                 { // -버튼을 클릭할 때
-                    food.Orders--;
-                    if (food.Orders <= 0)
+                    food.Count--;
+                    if (food.Count <= 0)
                     {
                         tableInfo.lstOrder.Remove(food);
                     }
                     return;
                 }
-                food.Orders++;
+                food.Count++;
                 return;
             }
-            Clonefood.Orders++;
+            Clonefood.Count++;
             tableInfo.lstOrder.Add(Clonefood);
         }
         internal void RemoveOrder(Food selectionFood,int talbeNum, bool removeAll = false)
@@ -71,7 +71,7 @@ namespace MDPOS.ViewModel
             tableInfo.Orders = string.Empty;
             foreach (Food food in tableInfo.lstOrder)
             {
-                tableInfo.Orders += food.Name + " * " + food.Orders + "\n";
+                tableInfo.Orders += food.Name + " * " + food.Count + "\n";
             }
             tableInfo.OrderTime = DateTime.Now;
         }

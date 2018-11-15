@@ -171,7 +171,7 @@ namespace MDPOS.Controls
             int total = 0;
             foreach(Food food in TableInfo.lstOrder)
             {
-                total += food.Orders * food.Price;
+                total += food.Count * food.Price;
             }
             tbPrice.Text = total.ToString();
             return;

@@ -53,17 +53,17 @@ namespace MDPOS.Model
                 OnPropertyChanged(nameof(Price));
             }
         }
-        private int orders;
-        public int Orders
+        private int count;
+        public int Count
         {
             get
             {
-                return orders;
+                return count;
             }
             set
             {
-                orders = value;
-                OnPropertyChanged(nameof(Orders));
+                count = value;
+                OnPropertyChanged(nameof(Count));
             }
         }
         public string Picture { get; set; }
@@ -93,7 +93,7 @@ namespace MDPOS.Model
             Food food = new Food();
             food.Name = this.Name;
             food.Category = this.Category;
-            food.Orders = this.Orders;
+            food.Count = this.Count;
             food.Total = this.Total;
             food.Picture = this.Picture;
             food.Price = this.Price;

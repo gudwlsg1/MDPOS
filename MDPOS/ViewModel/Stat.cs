@@ -24,12 +24,12 @@ namespace MDPOS.ViewModel
 
                 if (aFood != null)
                 {
-                    aFood.Orders += food.Orders;
-                    aFood.Total = aFood.Price * aFood.Orders;
+                    aFood.Count += food.Count;
+                    aFood.Total = aFood.Price * aFood.Count;
                     continue;
                 }
                 
-                Clonefood.Total = Clonefood.Price * Clonefood.Orders;
+                Clonefood.Total = Clonefood.Price * Clonefood.Count;
                 StatItems.Add(Clonefood);
             }
         }
@@ -40,13 +40,13 @@ namespace MDPOS.ViewModel
 
             for (int i = 0; i < Enum.GetNames(typeof(Pay)).Length; i++)
             {
-                lstPay.Add(new Food() { Pay = (Pay)i, Orders = 0, Total = 0, Price = 0 });
+                lstPay.Add(new Food() { Pay = (Pay)i, Count = 0, Total = 0, Price = 0 });
             }
 
             foreach (Food food in StatItems)
             {
                 Food aFood = lstPay.Where(w => w.Pay == food.Pay).FirstOrDefault();
-                aFood.Orders += food.Orders;
+                aFood.Count += food.Count;
                 aFood.Price += food.Price;
                 aFood.Total += food.Total;
             }
@@ -65,11 +65,11 @@ namespace MDPOS.ViewModel
 
                 if (aFood != null)
                 {
-                    aFood.Orders += food.Orders;
-                    aFood.Total = aFood.Price * aFood.Orders;
+                    aFood.Count += food.Count;
+                    aFood.Total = aFood.Price * aFood.Count;
                     continue;
                 }
-                cloneFood.Total = cloneFood.Price * cloneFood.Orders;
+                cloneFood.Total = cloneFood.Price * cloneFood.Count;
 
                 lstMenu.Add(cloneFood);
             }
@@ -83,15 +83,15 @@ namespace MDPOS.ViewModel
 
             for(int i = 0; i < Enum.GetNames(typeof(Category)).Length; i++)
             {
-                lstCategory.Add(new Food() { Category = (Category)i, Orders = 0, Total = 0, Price = 0 });
+                lstCategory.Add(new Food() { Category = (Category)i, Count = 0, Total = 0, Price = 0 });
             }
 
             foreach (Food food in StatItems)
             {
                 Food aFood = lstCategory.Where(w => w.Category == food.Category).FirstOrDefault();
-                aFood.Orders += food.Orders;
+                aFood.Count += food.Count;
                 aFood.Price += food.Price;
-                aFood.Total += food.Price * food.Orders;
+                aFood.Total += food.Price * food.Count;
             }
 
             return lstCategory;
